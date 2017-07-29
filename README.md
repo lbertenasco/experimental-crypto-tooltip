@@ -10,7 +10,7 @@ How to use
 1. Install the Google Chrome extension or clone the repo.
   - `npm install` || `yarn`
   - `npm run build` || `yarn build`
-  - Add unpacked extension into chrome://extensions/ (enable developer mode).
+  - Add unpacked extension into (chrome://extensions/)[chrome://extensions/] (enable developer mode).
 2. Go to any website containing an Ethereum address.
 3. A small icon will display next to the Ethereum address. Hover it.
 
