@@ -1,0 +1,73 @@
+.experimental-crypto-tooltip {
+    position: relative;
+}
+.experimental-crypto-tooltip .image-logo {
+  width: 18px;
+}
+.experimental-crypto-tooltip .experimental-crypto-tooltip-container {
+  display: none;
+  /*display: block;*/
+  position: absolute;
+  background: white;
+  width: auto;
+  max-width: 330px;
+  min-width: 200px;
+  min-height: 65px;
+  max-height: 350px;
+  border-radius: 4px;
+  overflow-y: scroll;
+  z-index: 999999;
+  top: 17px;
+  left: 0;
+  padding: 5px;
+
+  border: 1px solid #cacaca;
+  -webkit-box-shadow: 2px 2px 46px -10px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 46px -10px rgba(0,0,0,0.75);
+  box-shadow: 2px 2px 46px -10px rgba(0,0,0,0.75);
+  white-space: nowrap;
+}
+
+/* TODO FIX ARROW */
+.experimental-crypto-tooltip .experimental-crypto-tooltip-container:before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    border-width: 1px;
+    border-style: solid;
+    border-right: none;
+    border-bottom: none;
+    border-color: #cacaca;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform-origin: left top;
+    -moz-transform-origin: left top;
+    -ms-transform-origin: left top;
+    -o-transform-origin: left top;
+    transform-origin: left top;
+    z-index: 5;
+}
+.experimental-crypto-tooltip:hover .experimental-crypto-tooltip-container {
+  display: block;
+}
+.experimental-crypto-tooltip .experimental-crypto-tooltip-container .crypto-tokens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.experimental-crypto-tooltip .experimental-crypto-tooltip-container .crypto-tokens p {
+  margin: 0;
+  padding: 0 4px;
+  font-size: 14px;
+}
+.experimental-crypto-tooltip .experimental-crypto-tooltip-container .crypto-tokens p .price {
+  font-size: 11px;
+}
+.experimental-crypto-tooltip .experimental-crypto-tooltip-container .crypto-tokens .eth .price {
+  font-size: 10px;
+}

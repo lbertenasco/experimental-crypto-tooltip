@@ -1,0 +1,34 @@
+{
+  "name": "experimental-crypto-tooltip",
+  "version": "0.0.1",
+  "description": "Instantly retrieve and preview the content of any crypto address. Chrome extension by Experimental(e11)",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack",
+    "watch": "./node_modules/.bin/webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lbertenasco/experimental-crypto-tooltip/"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lbertenasco/experimental-crypto-tooltip/issues"
+  },
+  "homepage": "https://github.com/lbertenasco/experimental-crypto-tooltip/#readme",
+  "dependencies": {
+    "humanize-plus": "1.8.2",
+    "jquery": "3.2.1",
+    "jquery-browserify": "1.8.1",
+    "jquery-mousewheel": "3.1.13",
+    "moment": "2.18.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.47",
+    "@types/jquery": "3.2.10",
+    "ts-loader": "2.3.2",
+    "typescript": "2.4.2",
+    "webpack": "3.4.1"
+  }
+}
