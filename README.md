@@ -1,5 +1,4 @@
 # Experimental Crypto Tooltip
-====================
 
 Instantly retrieve and preview the content of any crypto address. Chrome extension by Experimental(e11)
 
