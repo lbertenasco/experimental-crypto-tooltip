@@ -12,7 +12,7 @@ How to use
   - `npm run build` || `yarn build`
   - Add unpacked extension into chrome://extensions/ (enable developer mode).
 2. Go to any website containing an Ethereum address.
-3. A small icon will display next to the Ethereum address. Click on it.
+3. A small icon will display next to the Ethereum address. Hover it.
 
 
 - Try it on our address: 0x37fc68835dD1EF6D7660fA47E87774d4678e7BCB
