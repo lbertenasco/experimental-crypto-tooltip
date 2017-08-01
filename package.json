@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack",
-    "watch": "./node_modules/.bin/webpack -w"
+    "watch": "./node_modules/.bin/webpack -w",
+    "zip": "zip -r Archive.zip assets manifest.json"
   },
   "repository": {
     "type": "git",
