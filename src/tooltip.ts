@@ -7,14 +7,23 @@ let mw = mousewheel;
 * Action to perform when hover on icon.
 */
 export function ebToggle(){
+  let top = $(this).offset().top - $(window).scrollTop();
+  let left = $(this).offset().left - $(window).scrollLeft();
+  $(this).find('.experimental-crypto-tooltip-container').css({
+    'top': top,
+    'left': left
+  });
+  $(this).find('.experimental-crypto-tooltip-container .loading').css('display', 'block');
   var publicKey = this.getAttribute('key');
   loadData(publicKey, (response) => {
     if (!response) {
       return;
     }
+    $(this).find('.experimental-crypto-tooltip-container .loading').css('display', 'none');
     if (response.length) {
       response.forEach(data => {
         if (data.account) {
+          $(this).find('.link').attr('href', `https://etherscan.io/address/${data.account}`);
           // Parse Ether value in balance:
           data.balance = data.balance / Math.pow(10, 18);
           $(this).find('.eth').attr('id', data.account);

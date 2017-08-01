@@ -1,6 +1,6 @@
 # Experimental Crypto Tooltip
 
-Instantly retrieve and preview the content of any crypto address. Chrome extension by Experimental(e11)
+Instantly retrieve and preview the content of any crypto address. Chrome extension soon.
 
 Chrome Store link:
 
@@ -25,6 +25,7 @@ Upcoming features:
 - Transactions preview
 - Contracts info
 - Support BTC and other main currencies.
+- web3 support
 
 
 License

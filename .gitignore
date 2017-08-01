@@ -45,3 +45,6 @@ Thumbs.db
 
 #yarn
 yarn-error.log
+
+#dist
+Archive.zip

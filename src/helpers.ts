@@ -24,17 +24,14 @@ export function parseHTML(node, callback) {
 }
 
 export function onMutations(callback){
-  let target: any = document.body;
-
   let observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
-      target = mutation.addedNodes[0];
-      callback(target);
+      callback(mutation.addedNodes[0]);
     });
   });
 
   let config = { attributes: true, childList: true, characterData: true };
-  observer.observe(target, config);
+  observer.observe(document.body, config);
 }
 
 export function addEventListenerByClass(className, event, fn) {
@@ -43,3 +40,18 @@ export function addEventListenerByClass(className, event, fn) {
     list[i].addEventListener(event, fn, false);
   }
 }
+
+
+/* Fix for position fixed scroll on tooltips */
+function scrollTooltip() {
+  var tooltips = $('.experimental-crypto-tooltip');
+  for (var i = 0; i < tooltips.length; i++) {
+    let top = $(tooltips[i]).offset().top - $(window).scrollTop();
+    let left = $(tooltips[i]).offset().left - $(window).scrollLeft();
+    $(tooltips[i]).find('.experimental-crypto-tooltip-container').css({
+      'top': top,
+      'left': left
+    });
+  }
+}
+$(window).scroll(scrollTooltip);

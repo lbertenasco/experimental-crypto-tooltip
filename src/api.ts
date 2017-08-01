@@ -13,7 +13,7 @@ export function loadData(key, callback) {
     if (xhr.readyState == 4) {
       let status = xhr.status;
       if (status == 200) {
-        let data = parseEtherscanContracts(xhr.response);
+        let data = parseEtherscanContracts(xhr.response, key);
         loadKeys([key].concat(data.keys), callback);
         loadETHPrice(callback);
         if (data && data.contracts) {
@@ -37,13 +37,13 @@ export function loadData(key, callback) {
 }
 
 
-function parseEtherscanContracts(document) {
+function parseEtherscanContracts(document, key) {
   let html = document.activeElement.innerHTML;
   let links = document.getElementsByTagName('a');
   let tokenContracts = [];
   // parsing aditional contracts
   for (var i = 0; i < links.length; i++) {
-    if (links[i].pathname.indexOf('/token/0x') === 0) {
+    if (links[i].pathname.indexOf('/token/0x') === 0 && links[i].search.indexOf(key) !== -1) {
       let token = links[i].innerHTML.trim();
       let text = token.split(' ')[0];
       tokenContracts.push({

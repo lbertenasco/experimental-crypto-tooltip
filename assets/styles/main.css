@@ -6,8 +6,7 @@
 }
 .experimental-crypto-tooltip .experimental-crypto-tooltip-container {
   display: none;
-  /*display: block;*/
-  position: absolute;
+  position: fixed;
   background: white;
   width: auto;
   max-width: 330px;
@@ -17,9 +16,8 @@
   border-radius: 4px;
   overflow-y: scroll;
   z-index: 999999;
-  top: 17px;
-  left: 0;
   padding: 5px;
+  margin-top: 14px;
 
   border: 1px solid #cacaca;
   -webkit-box-shadow: 2px 2px 46px -10px rgba(0,0,0,0.75);
@@ -54,6 +52,15 @@
 }
 .experimental-crypto-tooltip:hover .experimental-crypto-tooltip-container {
   display: block;
+}
+.experimental-crypto-tooltip .experimental-crypto-tooltip-container .link {
+  font-size: 12px;
+  text-align: center;
+  display: block;
+  margin-bottom: 2px;
+}
+.experimental-crypto-tooltip .experimental-crypto-tooltip-container .loading {
+  display: none;
 }
 .experimental-crypto-tooltip .experimental-crypto-tooltip-container .crypto-tokens {
   list-style: none;
