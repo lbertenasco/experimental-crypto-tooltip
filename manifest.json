@@ -3,7 +3,7 @@
 	"manifest_version": 2,
 	"name": "Experimental Crypto Tooltip",
 	"version": "0.1",
-	"description": "Instantly retrieve and preview the content of any crypto address. Chrome extension soon",
+	"description": "Instantly retrieve and preview the content of any crypto address.",
 	"permissions": ["https://etherscan.io/","https://etherchain.org/", "https://api.coinmarketcap.com"],
 	"web_accessible_resources": [
 		"assets/icons/cryptotooltip_logo32.png",
