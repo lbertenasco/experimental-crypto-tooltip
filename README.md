@@ -32,6 +32,8 @@ Donations
 ---------
 🎉 eth: 0x37fc68835dD1EF6D7660fA47E87774d4678e7BCB ❤️
 
+🎉 btc: 131sgXR4sdFHEmLUS3CtHPuReMR9Udv9FN ❤️
+
 
 License
 -------
