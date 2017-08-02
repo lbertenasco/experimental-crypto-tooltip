@@ -1,6 +1,6 @@
 {
   "name": "experimental-crypto-tooltip",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Instantly retrieve and preview the content of any crypto address. Chrome extension soon",
   "main": "index.js",
   "scripts": {

@@ -2,7 +2,7 @@
   "update_url": "https://clients2.google.com/service/update2/crx",
 	"manifest_version": 2,
 	"name": "Experimental Crypto Tooltip",
-	"version": "0.2",
+	"version": "0.3",
 	"description": "Instantly retrieve and preview the content of any crypto address.",
 	"permissions": ["https://etherscan.io/","https://etherchain.org/", "https://api.coinmarketcap.com", "https://blockchain.info"],
 	"web_accessible_resources": [
