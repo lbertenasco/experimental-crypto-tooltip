@@ -7,17 +7,22 @@ import * as $ from 'jquery';
 /*
 * Load data from etherscan.io
 */
-export function loadData(key, callback) {
+export function loadData(key, cryptoType, callback) {
   let xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       let status = xhr.status;
       if (status == 200) {
-        let data = parseEtherscanContracts(xhr.response, key);
-        loadKeys([key].concat(data.keys), callback);
-        loadETHPrice(callback);
-        if (data && data.contracts) {
-          callback(data.contracts);
+        if (cryptoType === 'ETH') {
+          let data = parseEtherscanContracts(xhr.response, key);
+          loadKeys([key].concat(data.keys), callback);
+          loadETHPrice(callback);
+          if (data && data.contracts) {
+            callback(data.contracts);
+          }
+        } else if (cryptoType === 'BTC') {
+          loadBTCPrice(callback);
+          callback({'btc': key, res: xhr.response})
         }
         /* Get extra contract data from APIS */
         /*
@@ -30,9 +35,15 @@ export function loadData(key, callback) {
       }
     }
   }
-  let url = `https://etherscan.io/address/${key}`;
+  let url;
+  if (cryptoType === 'ETH') {
+    url = `https://etherscan.io/address/${key}`;
+    xhr.responseType = 'document';
+  } else if (cryptoType === 'BTC') {
+    url = `https://blockchain.info/rawaddr/${key}`;
+    xhr.responseType = 'json';
+  }
   xhr.open("GET", url, true);
-  xhr.responseType = 'document';
   xhr.send();
 }
 
@@ -110,12 +121,31 @@ function loadETHPrice(callback) {
       if (status == 200) {
         let data = xhr.response;
         if (data.length) {
-          callback({eth: data[0]});
+          callback({eth_price: data[0]});
         }
       }
     }
   }
   let url = `https://api.coinmarketcap.com/v1/ticker/ethereum/`;
+  xhr.open("GET", url, true);
+  xhr.responseType = 'json';
+  xhr.send();
+}
+
+function loadBTCPrice(callback) {
+  let xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      let status = xhr.status;
+      if (status == 200) {
+        let data = xhr.response;
+        if (data['USD'] && data['USD'].last) {
+          callback({btc_price: {price_usd: data['USD'].last}});
+        }
+      }
+    }
+  }
+  let url = `https://blockchain.info/ticker`;
   xhr.open("GET", url, true);
   xhr.responseType = 'json';
   xhr.send();

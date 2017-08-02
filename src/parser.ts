@@ -1,5 +1,6 @@
 export const CLASS = 'experimental-crypto-tooltip';
 export const ETH = /\b0x[a-zA-Z0-9]{40}\b/g;
+export const BTC = /\b[13][a-km-zA-HJ-NP-Z1-9]{25,34}\b/g;
 // TODO Handle transaction hashes
 export const TRANSACTION = /\b0x[a-zA-Z0-9]{64}\b/g;
 let globalKeys = {};
@@ -8,26 +9,39 @@ export function processTextNode(element) {
 
   let val = element.nodeValue;
 
-  if (!val || !ETH.test(val)) {
+  if (!val) {
+    return;
+  }
+  let HASH;
+  let cryptoType;
+  if (ETH.test(val)) {
+    cryptoType = 'ETH';
+    HASH = ETH;
+  } else if (BTC.test(val)) {
+    cryptoType = 'BTC';
+    HASH = BTC;
+  }
+
+  if (!HASH) {
     return;
   }
   if (checkElementTagName(element, 'A')) {
-    let keys = val.match(ETH);
+    let keys = val.match(HASH);
     let key = keys[0];
     if (!findElement(key, element)) {
       addElementKey(key, element);
-      insertSpanAfterLink(element, key, CLASS);
+      insertSpanAfterLink(element, key, cryptoType, CLASS);
     }
 
   } else if (checkElementTagName(element, 'SPAN')) {
-    let keys = val.match(ETH);
+    let keys = val.match(HASH);
     let key = keys[0];
     if (!findElement(key, element)) {
       addElementKey(key, element);
-      insertSpanAfterSpan(element, key, CLASS);
+      insertSpanAfterSpan(element, key, cryptoType, CLASS);
     }
   } else {
-    let regExp = /\b0x[a-zA-Z0-9]{40}\b/g; // TODO Fix duplicated regExp
+    let regExp = HASH == ETH? /\b0x[a-zA-Z0-9]{40}\b/g : /\b[13][a-km-zA-HJ-NP-Z1-9]{25,34}\b/g; // TODO Fix duplicated regExp
     let regExpArray;
     let prev = 0;
     let counter = 0;
@@ -35,7 +49,7 @@ export function processTextNode(element) {
     while ((regExpArray = regExp.exec(val)) !== null) {
       if (!findElement(regExpArray[0], element)) {
         addElementKey(regExpArray[0], curNode);
-        insertSpanInTextNode(curNode, regExpArray[0], CLASS, regExp.lastIndex-prev);
+        insertSpanInTextNode(curNode, regExpArray[0], cryptoType, CLASS, regExp.lastIndex-prev);
       }
       prev = regExp.lastIndex;
       counter = counter + 1;
@@ -59,13 +73,13 @@ function checkElementTagName(element, tagName) {
 /*
 * Insert a container inside a text node.
 */
-function insertSpanInTextNode(element, key, className, at) {
+function insertSpanInTextNode(element, key, cryptoType, className, at) {
   // create new container node
   let parent = $(element.parentNode);
   if (parent.find(`[key="${key}"]`).length) {
     return;
   }
-  let container = createContainer(key, className);
+  let container = createContainer(key, cryptoType, className);
 
   // split the text node into two and add new container
   element.parentNode.insertBefore(container, element.splitText(at));
@@ -74,7 +88,7 @@ function insertSpanInTextNode(element, key, className, at) {
 /*
 * Insert a container inside after the parent node that represents a link.
 */
-function insertSpanAfterLink(element, key, className) {
+function insertSpanAfterLink(element, key, cryptoType, className) {
   let curNode = element;
   while (curNode) {
     if (curNode.tagName == 'A') {
@@ -83,7 +97,7 @@ function insertSpanAfterLink(element, key, className) {
       if (parent.find(`[key="${key}"]`).length) {
         return;
       }
-      let container = createContainer(key, className);
+      let container = createContainer(key, cryptoType, className);
 
       // add the container after the link
       curNode.parentNode.insertBefore(container,curNode.nextSibling);
@@ -97,7 +111,7 @@ function insertSpanAfterLink(element, key, className) {
 /*
 * Insert a container inside after the parent node that represents a container.
 */
-function insertSpanAfterSpan(element, key, className) {
+function insertSpanAfterSpan(element, key, cryptoType ,className) {
   let curNode = element;
   while (curNode) {
     if (curNode.tagName == 'SPAN') {
@@ -106,7 +120,7 @@ function insertSpanAfterSpan(element, key, className) {
       if (parent.find(`[key="${key}"]`).length) {
         return;
       }
-      let container = createContainer(key, className);
+      let container = createContainer(key, cryptoType, className);
 
       // add the container after the link
       curNode.parentNode.insertBefore(container,curNode.nextSibling);
@@ -117,9 +131,10 @@ function insertSpanAfterSpan(element, key, className) {
   }
 }
 
-function createContainer(key, className) {
+function createContainer(key, cryptoType, className) {
   let container = document.createElement('span');
   container.setAttribute('key', key);
+  container.setAttribute('crypto-type', cryptoType);
   container.className = className;
   container.appendChild(document.createTextNode(''));
   return container;

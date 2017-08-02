@@ -4,7 +4,7 @@
 	"name": "Experimental Crypto Tooltip",
 	"version": "0.2",
 	"description": "Instantly retrieve and preview the content of any crypto address.",
-	"permissions": ["https://etherscan.io/","https://etherchain.org/", "https://api.coinmarketcap.com"],
+	"permissions": ["https://etherscan.io/","https://etherchain.org/", "https://api.coinmarketcap.com", "https://blockchain.info"],
 	"web_accessible_resources": [
 		"assets/icons/cryptotooltip_logo32.png",
 		"assets/html/tooltip.html"
