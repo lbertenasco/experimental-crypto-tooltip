@@ -49,18 +49,26 @@ export function loadData(key, cryptoType, callback) {
 
 
 function parseEtherscanContracts(document, key) {
-  let html = document.activeElement.innerHTML;
-  let links = document.getElementsByTagName('a');
+  let list = document.getElementById('balancelist');
+  let links = list.getElementsByTagName('a');
   let tokenContracts = [];
   // parsing aditional contracts
   for (var i = 0; i < links.length; i++) {
     if (links[i].pathname.indexOf('/token/0x') === 0 && links[i].search.indexOf(key) !== -1) {
-      let token = links[i].innerHTML.trim();
-      let text = token.split(' ')[0];
+      let token = links[i].innerHTML.replace(/<\/?[^>]+(>|$)/g, " ").trim().replace(/\s+/g,' ');
+      let text = ''
+      let value = '';
+      if (/\b0x[a-zA-Z0-9]{40}\b/g.test(token)) {
+        text = token.split(' ')[2];
+        value = token.split(' ')[1];
+      } else {
+        text = token.split(' ')[0];
+        value = token.slice(text.length + 1);
+      }
       tokenContracts.push({
         contract: links[i].pathname.split('/')[2],
         text: text,
-        value: token.slice(text.length + 1)
+        value: value
       });
     }
   }
